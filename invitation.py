@@ -87,7 +87,7 @@ class Conference:
                 common_date_list = [el for sublist in france_dates for el in sublist]
                 france_best_date = max(common_date_list, key=common_date_list.count)
 
-        # print(f'US: {us_best_date}, Ireland: {ireland_best_date}, Spain: {spain_best_date}, Mexico: {mexico_best_date}, Canada: {canada_best_date}, Singapore: {singapore_best_date}, Japan: {japan_best_date}, UK: {uk_best_date}, France: {france_best_date}')
+        print(f'US: {us_best_date}, Ireland: {ireland_best_date}, Spain: {spain_best_date}, Mexico: {mexico_best_date}, Canada: {canada_best_date}, Singapore: {singapore_best_date}, Japan: {japan_best_date}, UK: {uk_best_date}, France: {france_best_date}')
         all_dates = []
         all_dates.append(('United States',us_best_date)), all_dates.append(('Ireland',ireland_best_date)), all_dates.append(('Spain',spain_best_date)), 
         all_dates.append(('Mexico',mexico_best_date)), all_dates.append(('Canada',canada_best_date)), all_dates.append(('Singapore',singapore_best_date)), 
@@ -137,6 +137,7 @@ class Conference:
                 if best_date[8][1] in person['availableDates']:
                     france_emails.append(person['email'])
     
+    # Get a count of attendees for each country
     us_attendee_count = len(us_emails)
     ireland_attendee_count = len(ireland_emails)
     spain_attendee_count = len(spain_emails)
@@ -160,15 +161,17 @@ class Conference:
 
     # Create a new dictionary and add country dictionaries
     country_dict_list = [usa_attendee_dict, ireland_attendee_dict, spain_attendee_dict, mexico_attendee_dict, canada_attendee_dict, singapore_attendee_dict, japan_attendee_dict, uk_attendee_dict, france_attendee_dict]
+    global sorted_dict
     sorted_dict = {}
+    def update_dict(d, x):
+        d.update({key:value for key, value in x.items() if key not in d})
     for i in country_dict_list:
-        def update_dict(d, x):
-            d.update({key:value for key, value in x.items() if key not in d})
         update_dict(sorted_dict, i)
+    # print(sorted_dict)
 
     # Create a post request
     @classmethod
-    def send_post(info_to_post):
+    def send_post(self,info_to_post):
         url = f'https://ct-mock-tech-assessment.herokuapp.com/'
         try:
             response = requests.post(url, data={'data': info_to_post})
@@ -181,6 +184,7 @@ class Conference:
             print(e)
             print(" = "*100)
             print(" ~~> Please make sure you're sending the request to correct URL ")
+            print(" = "*100)
 
 class Run():
-    Conference.send_post()
+    Conference.send_post(sorted_dict)
