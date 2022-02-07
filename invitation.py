@@ -1,6 +1,3 @@
-# dictionary of countries with list of country data as value
-# each list will have a person dictionary with relevent information
-
 import requests
 
 unfiltered_data = requests.get(f'https://ct-mock-tech-assessment.herokuapp.com/').json()
@@ -87,7 +84,7 @@ class Conference:
                 common_date_list = [el for sublist in france_dates for el in sublist]
                 france_best_date = max(common_date_list, key=common_date_list.count)
 
-        print(f'US: {us_best_date}, Ireland: {ireland_best_date}, Spain: {spain_best_date}, Mexico: {mexico_best_date}, Canada: {canada_best_date}, Singapore: {singapore_best_date}, Japan: {japan_best_date}, UK: {uk_best_date}, France: {france_best_date}')
+        # print(f'US: {us_best_date}, Ireland: {ireland_best_date}, Spain: {spain_best_date}, Mexico: {mexico_best_date}, Canada: {canada_best_date}, Singapore: {singapore_best_date}, Japan: {japan_best_date}, UK: {uk_best_date}, France: {france_best_date}')
         all_dates = []
         all_dates.append(('United States',us_best_date)), all_dates.append(('Ireland',ireland_best_date)), all_dates.append(('Spain',spain_best_date)), 
         all_dates.append(('Mexico',mexico_best_date)), all_dates.append(('Canada',canada_best_date)), all_dates.append(('Singapore',singapore_best_date)), 
